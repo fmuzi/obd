@@ -1,1 +1,3 @@
 # obd
+
+pip install obd
