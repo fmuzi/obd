@@ -13,8 +13,13 @@ def retrieve_value(metric):
     time.sleep(.2)
     return connection.query(obd.commands[metric]).value
 
-connection = obd.OBD("/dev/ttys002", baudrate=(9600)) # auto-connects to USB or RF port
+#connection = obd.OBD() # auto-connects to USB or RF port
+#connection = obd.OBD("/dev/ttys002", baudrate=(9600)) # MacOS
+connection = obd.OBD('COM7', fast=False, timeout=30) # Windows
+input("Press Enter to continue...")
+
 supported_command_list=list(connection.supported_commands)
+input("Press Enter to continue...")
 
 for x in range(len(supported_command_list)):
     print(supported_command_list[x])
@@ -22,6 +27,7 @@ for x in range(len(supported_command_list)):
 print(retrieve_value("GET_DTC"))
 
 for i in range(10):
+    input("Press Enter to continue...")
     x = {
         "timestamp": f"{datetime.today().strftime('%Y-%m-%d %H:%M:%S.%f')}",
         "MAF": f'{retrieve_value("MAF")}',
